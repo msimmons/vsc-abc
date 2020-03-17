@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ABC WebView</title>
+	<script src="${abcjs.uri}" type="text/javascript"></script>
+    <script type="text/javascript">
+        const vscode = acquireVsCodeApi()
+		function load() {
+            window.addEventListener('message', eventListener)
+        }
+        function clickListener(abcElement, tuneNumber, classes) {
+            console.log(abcElement)
+            vscode.postMessage({
+                chord: abcElement.chord,
+                averagepitch: abcElement.averagepitch,
+                duration: abcElement.duration,
+                el_type: abcElement.el_type,
+                endChar: abcElement.endChar,
+                lyric: abcElement.lyric,
+                maxpitch: abcElement.maxpitch,
+                minpitch: abcElement.minpitch,
+                pitches: abcElement.pitches,
+                startChar: abcElement.startChar
+            })
+            //vscode.postMessage({
+              //  element: {start: abcElement.startChar, end: abcElement.endChar, pitches: abcElement.pitches},
+                //classes: classes
+            //})
+        }
+        function eventListener(event) {
+            ABCJS.renderAbc("paper", event.data.source, {...event.data.params, clickListener: clickListener});
+        }
+	</script>
+</head>
+<body onload="load()">
+
+<div id="paper"></div>
+</body>
+</html>

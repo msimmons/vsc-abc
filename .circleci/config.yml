@@ -1,0 +1,46 @@
+version: 2.1
+
+references:
+  npm-cache-keys: &npm_cache_keys
+    - v1-npm-deps-{{ checksum "package.json" }}
+    - v1-npm-deps-
+
+  npm_cache_key: &npm_cache_key
+    v1-npm-deps-{{ checksum "package.json" }}
+
+jobs:
+  build:
+    working_directory: /home/work/build
+    docker:
+      - image: msimmons/nodejvm:latest
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASSWORD
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            *npm_cache_keys
+      - run: 
+          shell: /bin/bash --login -eo pipefail 
+          command: |
+            source ~/.nvm/nvm.sh
+            nvm i 10
+            npm i vsce -g
+            npm install
+            vsce package
+            mkdir dist
+            cp *.vsix dist
+      - save_cache:
+          key: *npm_cache_key
+          paths:
+            - node_modules
+            - ~/.nvm
+      - store_artifacts:
+          path: dist
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - build:
+          context: github_registry

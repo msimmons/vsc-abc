@@ -1,0 +1,39 @@
+{
+    "scopeName": "source.abc",
+    "patterns": [{ "include": "#tune" }],
+    "repository": {
+      "tune": {
+        "patterns": [{"include": "#comment"}, { "include": "#information" }, { "include": "#chord" }, { "include": "#note" }, { "include": "#punctuation"}]
+      },
+      "comment": {
+          "match":"%(.*)",
+          "name": "comment.line.percentage.abc"
+      },
+      "information": {
+        "match": "(A:|B:|C:|D:|F:|G:|H:|I:|K:|L:|M:|m:|N:|O:|P:|Q:|R:|r:|S:|s:|T:|U:|V:|W:|w:|X:|Z:)(.*)",
+        "captures": {
+            "1": { "name" : "keyword.other.abc" },
+            "2": { "name" : "string.abc" }
+        },
+        "name": "entity.name.instruction.abc"
+      },
+      "chord": {
+          "match": "\"[a-gA-G][a-zA-Z/]*\"",
+          "name": "storage.modifier.chord.abc"
+      },
+      "note": {
+          "match": "([\\^=_]*)([A-Ga-gZz])([,']*)([/><0-9]*)",
+          "captures": {
+            "1": { "name" : "keyword.control.accidental.abc" },
+            "2": { "name" : "entity.name.function.note.abc" },
+            "3": { "name" : "keyword.control.range.abc" },
+            "4": { "name" : "keyword.control.duration.abc" }
+        },
+        "name": "entity.name.note.abc"
+      },
+      "punctuation": {
+          "match": "[:]+[\\|][\\]]+",
+          "name": "punctuation.barline.abc"
+      }
+    }
+  }

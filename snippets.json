@@ -1,0 +1,34 @@
+{
+    "Start Song": {
+        "prefix": "song",
+        "body": [
+            "X: 1",
+            "T: ${1:title}",
+            "C: ${2:composer}",
+            "M: ${3|4/4,3/4|}",
+            "L: ${4|1/4,1/8|}",
+            "K: ${5|A,B,C,D,E,F,G|}",
+            "P: Verse",
+            "Z | Z | Z | Z |]",
+            "P: Chorus",
+            "Z | Z | Z | Z |]",
+            "W:",
+            "W: V2"
+        ]
+    },
+    "Start Tune": {
+        "prefix": "tune",
+        "body": [
+            "X: 1",
+            "T: ${1:title}",
+            "C: ${2:composer}",
+            "M: ${3|4/4,3/4|}",
+            "L: ${4|1/4,1/8|}",
+            "K: ${5|A,B,C,D,E,F,G|}",
+            "P: A",
+            "Z | Z | Z | Z :|]",
+            "P: B",
+            "Z | Z | Z | Z :|]"
+        ]
+    }
+}
